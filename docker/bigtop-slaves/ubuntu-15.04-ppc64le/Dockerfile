@@ -12,7 +12,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+FROM bigtop/puppet:ubuntu-15.04-ppc64le
+MAINTAINER Amir Sanjar
 
-distributionPath=wrapper/dists
-zipStorePath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-2.4-bin.zip
+COPY bigtop_toolchain /etc/puppet/modules/bigtop_toolchain
+COPY gradle.home /usr/share/gradle.home
+
+RUN puppet apply -e "include bigtop_toolchain::installer"
+RUN chown jenkins:jenkins /usr/share/gradle.home
