@@ -33,6 +33,25 @@
 #   --debug         - turns up the log4j output to maximum
 #   --traceback     - shows tracebacks from tests
 
+locate_bigtop_detect_javahome() {
+
+    #####################################################################
+    # Iterate through possible locations for the detection script
+    #####################################################################
+
+    scriptpath=""
+    scriptname="bigtop-detect-javahome"
+
+    # iterate and preferring the checkout dir
+    locations="../../bigtop-packages/src/common/bigtop-utils bin /usr/lib/bigtop-utils"
+    for location in $locations; do
+        if [ -f $location/$scriptname ]; then
+            scriptpath=$location/$scriptname
+        fi
+    done
+    echo $scriptpath
+}
+
 set_java_home() {
 
     #####################################################################
@@ -40,7 +59,12 @@ set_java_home() {
     #####################################################################
 
     if [ -z "$JAVA_HOME" ]; then
-        source bin/bigtop-detect-javahome
+        scriptpath=$(locate_bigtop_detect_javahome)
+        if [ -z $scriptpath ]; then
+            echo "ERROR: bigtop_detect_javahome was not found"
+        fi
+        echo "# DEBUG: sourcing $scriptpath"
+        source $scriptpath
     fi
 
     echo "# DEBUG: JAVA_HOME=$JAVA_HOME"
@@ -62,6 +86,9 @@ set_hadoop_vars() {
       export HADOOP_CONF_DIR=/etc/hadoop/conf
     fi
     if ( [ -z "$HADOOP_MAPRED_HOME" ] && [ -d /usr/lib/hadoop-mapreduce-client ] ); then
+      export HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce-client
+    fi
+    if ( [ -z "$HADOOP_MAPRED_HOME" ] && [ -d /usr/lib/hadoop-mapreduce ] ); then
       export HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce-client
     fi
 
@@ -173,6 +200,11 @@ done
 for s in $SPEC_TESTS; do
   ALL_SPEC_TASKS="$ALL_SPEC_TASKS bigtop-tests:spec-tests:$s:test"
 done
+
+# MAKE SURE TO CD INTO THE TOP LEVEL CHECKOUT DIR
+if [[ $(basename $(pwd)) == "smoke-tests" ]]; then
+    cd ../..
+fi
 
 # CALL THE GRADLE WRAPPER TO RUN THE FRAMEWORK
 ./gradlew -q --continue clean -Psmoke.tests $ALL_SMOKE_TASKS -Pspec.tests $ALL_SPEC_TASKS $@
