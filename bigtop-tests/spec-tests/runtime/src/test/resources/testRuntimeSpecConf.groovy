@@ -256,7 +256,7 @@ specs {
         referenceList = 'hadoop-yarn-bin.list'
       }
     }
-    'HADOOP_JARCONTENT_COMMON' {
+    'HADOOP_LIBJARSCONTENT_COMMON' {
       name = 'HADOOP_JARCONTENT_COMMON'
       type = 'dirstruct'
       arguments {
@@ -266,7 +266,7 @@ specs {
         referenceList = 'hadoop-common-jar.list'
       }
     }
-    'HADOOP_JARCONTENT_HDFS' {
+    'HADOOP_LIBJARSCONTENT_HDFS' {
       name = 'HADOOP_JARCONTENT_HDFS'
       type = 'dirstruct'
       arguments {
@@ -276,7 +276,7 @@ specs {
         referenceList = 'hadoop-hdfs-jar.list'
       }
     }
-    'HADOOP_JARCONTENT_MAPRED' {
+    'HADOOP_LIBJARSCONTENT_MAPRED' {
       name = 'HADOOP_JARCONTENT_MAPRED'
       type = 'dirstruct'
       arguments {
@@ -286,7 +286,7 @@ specs {
         referenceList = 'hadoop-mapreduce-jar.list'
       }
     }
-    'HADOOP_JARCONTENT_YARN' {
+    'HADOOP_LIBJARSCONTENT_YARN' {
       name = 'HADOOP_JARCONTENT_YARN'
       type = 'dirstruct'
       arguments {
