@@ -218,7 +218,7 @@ specs {
     }
     'HADOOP_BINCONTENT_COMMON' {
       name = 'HADOOP_BINCONTENT_COMMON'
-      type = 'dircontent'
+      type = 'dirstruct'
       arguments {
         envcmd = 'hadoop envvars'
         baseDirEnv = 'HADOOP_COMMON_HOME'
