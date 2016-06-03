@@ -177,13 +177,6 @@ export HADOOP_LIBEXEC_DIR=/${SYSTEM_LIBEXEC_DIR#${PREFIX}}
 exec ${component#${PREFIX}} "\$@"
 EOF
   chmod 755 $wrapper
-  
-  # ODPI-131 Add symbolic links for hdfs, yarn, mapred in $HADOOP_DIR
-  binary = ${component#*/bin/}
-  if [ $binary != "hadoop" ]; then
-    hadoopbinwrapper=$HADOOP_DIR/bin/$binary
-    ln -s $hadoopbinwrapper $wrapper 
-  fi
 done
 
 #libexec
