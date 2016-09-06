@@ -132,7 +132,16 @@ bigtop {
                 ref = 'branch-2.7-ODP'; dir = 'branch-2.7-ODP'}
 ***/
     }
-
+    'hive' {
+      name    = 'hive'
+      relNotes = 'Apache Hive'
+      version { base = '1.2.1'; pkg = base+'+odpi'; release = 1 }
+      tarball { destination = "apache-${name}-${version.base}-src.tar.gz"
+                source      = destination }
+      url     { download_path = "/$name/$name-${version.base}/"
+                site = "${apache.APACHE_MIRROR}/${download_path}"
+                archive = "${apache.APACHE_ARCHIVE}/${download_path}" }
+    }
     'bigtop-groovy' {
       name    = 'bigtop-groovy'
       version { base = '2.4.4'; pkg = base+'+odpi'; release = 1}
