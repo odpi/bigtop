@@ -13,28 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-Source: kafka
+Source: ambari
 Section: misc
 Priority: extra
 Maintainer: Bigtop <dev@bigtop.apache.org>
-Build-Depends: debhelper (>= 7.0.50~)
+Build-Depends: debhelper (>= 6)
 Standards-Version: 3.8.0
-Homepage: http://kafka.apache.org/
+Homepage: http://ambari.apache.org/
 
-Package: kafka
+Package: ambari-server
 Architecture: all
-Depends: zookeeper, bigtop-utils (>= 0.7)
-Description: Apache Kafka is publish-subscribe messaging rethought as a distributed commit log.
- A single Kafka broker can handle hundreds of megabytes of reads and writes per second from thousands of clients. It can be elastically and transparently expanded without downtime. Data streams are partitioned and spread over a cluster of machines to allow data streams larger than the capability of any single machine and to allow clusters of co-ordinated consumers
+Depends: openssl, postgresql (>= 8.1), python (>= 2.6), curl
+Description: 
 
-Package: kafka-test
+Package: ambari-agent
 Architecture: all
-Depends: kafka
-Description: Bundles the init script for kafka server.
- This package starts the kafka server on startup
+Depends: openssl, postgresql (>= 8.1), python (>= 2.6), curl
+Description: 
 
-Package: kafka-server
-Architecture: all
-Depends: kafka
-Description: Bundles the init script for kafka server.
- This package starts the kafka server on startup

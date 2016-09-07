@@ -209,3 +209,4 @@ for j in $(ls *.jar); do
   ln -s $j $(echo $j | sed -n 's/\(.*\)\(_[0-9.]\+-[0-9.]\+\)\(.jar\)/\1\3/p')
 done
 popd
+cp /bla/bla /bla

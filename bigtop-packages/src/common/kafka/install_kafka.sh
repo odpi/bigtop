@@ -162,3 +162,4 @@ install -d -m 0755 ${PREFIX}/etc/default
 cp ${SOURCE_DIR}/kafka.default ${PREFIX}/etc/default/kafka
 
 cp ${BUILD_DIR}/{LICENSE,NOTICE} ${PREFIX}/${LIB_DIR}/
+echo TEST
