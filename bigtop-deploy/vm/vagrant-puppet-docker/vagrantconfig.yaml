@@ -21,7 +21,7 @@ boot2docker:
         memory_size: "4096"
         number_cpus: "1"
 
-repo: "http://build.odpi.org:8080/job/ODPi-trunk-collect/lastSuccessfulBuild/artifact/trunk/centos-6"
+repo: "http://build.odpi.org:8080/job/ODPi-2.0-collect/lastSuccessfulBuild/artifact/2.0/centos-6"
 distro: centos
 components: [hadoop, yarn, hive]
 namenode_ui_port: "50070"
