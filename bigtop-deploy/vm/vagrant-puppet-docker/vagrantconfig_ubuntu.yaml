@@ -21,7 +21,7 @@ boot2docker:
         memory_size: "4096"
         number_cpus: "1"
 
-repo: "http://build.odpi.org:8080/job/ODPi-v1.0-collect/lastSuccessfulBuild/artifact/1.0/ubuntu-14.04/apt"
+repo: "http://repo.odpi.org/ODPi/2.0/ubuntu-14.04/apt"
 distro: debian
 components: [hadoop, yarn]
 namenode_ui_port: "50070"
