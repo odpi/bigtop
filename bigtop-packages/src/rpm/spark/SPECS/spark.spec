@@ -196,12 +196,11 @@ done
 %{lib_spark}/RELEASE
 %{lib_spark}/NOTICE
 %{lib_spark}/bin
-%{lib_spark}/lib
-%exclude %{lib_spark}/lib/datanucleus-*.jar
-%exclude %{lib_spark}/lib/spark-*-yarn-shuffle.jar
+%{lib_spark}/jars
 %{lib_spark}/sbin
 %{lib_spark}/data
 %{lib_spark}/examples
+%{lib_spark}/licenses
 %{lib_spark}/work
 %exclude %{bin_spark}/pyspark
 %exclude %{lib_spark}/python
@@ -222,8 +221,8 @@ done
 
 %files -n spark-datanucleus
 %defattr(-,root,root,755)
-%{lib_spark}/lib/datanucleus-*.jar
-%{lib_spark}/yarn/lib/datanucleus-*.jar
+%{lib_spark}/jars/datanucleus-*.jar
+%{lib_spark}/yarn/datanucleus-*.jar
 
 %files -n spark-extras
 %defattr(-,root,root,755)
@@ -231,8 +230,7 @@ done
 
 %files -n spark-yarn-shuffle
 %defattr(-,root,root,755)
-%{lib_spark}/lib/spark-*-yarn-shuffle.jar
-%{lib_spark}/yarn/lib/spark-yarn-shuffle.jar
+%{lib_spark}/yarn/spark-*yarn-shuffle.jar
 
 %define service_macro() \
 %files -n %1 \
