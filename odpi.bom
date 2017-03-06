@@ -120,10 +120,10 @@ bigtop {
     'hadoop' {
       name    = 'hadoop'
       relNotes = 'Apache Hadoop'
-      version { base = '2.7.1-odpi'; pkg = '2.7.1+odpi'; release = 1 }
+      version { base = '3.0.0-alpha2'; pkg = '3.0.0+alpha2'; release = 1 }
       tarball { destination = "${name}-${version.base}.tar.gz"
-                source      = "odpi-branch-2.7.1.zip" }
-      url     { download_path = "odpi/hadoop/archive"
+                source      = "release-${version.base}.tar.gz" }
+      url     { download_path = "apache/hadoop/archive/rel"
                 site = "https://github.com/${download_path}"
                 archive = site }
 /*** In case there's a need to build directly from the git (which might be useful,
