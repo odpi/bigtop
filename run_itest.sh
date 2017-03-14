@@ -93,7 +93,7 @@ case $1 in
 done
 
 if [ ! -f /etc/hive/conf/hive-site.xml ]; then
-    echo "Could not find hive site configuration file, please specify hive params!"
+    echo -e "\n**** Could not find hive site configuration file, please specify hive params! ****\n"
     usage
 fi
 
@@ -103,7 +103,7 @@ if [ -z "$HIVE_JDBC_URL" ]; then
     if [ $? -eq 0 ]; then
         HIVE_JDBC_URL=jdbc:hive2://localhost:$HIVE_PORT
     else
-        echo "Could not find hive server 2 service, please specify --hivejdbc argument."
+        echo -e "\n**** Could not find hive server 2 service, please specify --hivejdbc argument. ****\n"
         usage
     fi
 fi
@@ -214,6 +214,11 @@ print_cluster_info() {
   echo "# JAVA_HOME: $JAVA_HOME"
   JAVA_VERSION=$(java -version 2>&1 | head -n 1 | awk -F '"' '{print $2}')
   echo "# JAVA_VERSION: $JAVA_VERSION"
+  
+  if [ ! -f $JAVA_HOME/lib/tools.jar ]; then
+    echo -e "\n**** Could not find Java tools.jar, please set JAVA_HOME to a JDK and make sure the java devel package is installed! ****\n"
+    exit 1
+  fi
 }
 
 print_tests() {
