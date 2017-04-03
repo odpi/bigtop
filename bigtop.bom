@@ -37,8 +37,8 @@
  bigtop { // *the name should be change: the parsing code depends on it*
    version = "STACK-VERSION" // *required*
    stack { // *required* Fundamental properties of the Stack: JDK, SDK, GDK, etc
-     'jdk' { version = '1.7'; version_base = version }
-     'scala' { version = '2.10.4'; version_base = version }
+     'jdk' { version = '1.8'; version_base = version }
+     'scala' { version = '2.11.1'; version_base = version }
    }
    apache { // *required* These shoudn't be modified unless ASF Infra demands changes
      APACHE_MIRROR = "http://apache.osuosl.org"
@@ -69,8 +69,8 @@ bigtop {
 /** Base Configuration of the mirror and archives */
   version = "1.2.0-SNAPSHOT"
   stack {
-    'jdk' { version = '1.7'; version_base = version }
-    'scala' { version = '2.10.4'; version_base = version }
+    'jdk' { version = '1.8'; version_base = version }
+    'scala' { version = '2.11.1'; version_base = version }
   }
   apache {
     APACHE_MIRROR = "http://apache.osuosl.org"
@@ -93,7 +93,7 @@ bigtop {
       'phoenix', 'tachyon', 'kafka', 'ycsb', 'kite', 'hama', 'zeppelin',
       'tajo', 'apex'
     ],
-    hbase:['phoenix','giraph','ycsb'],
+    hbase:['phoenix','giraph','ycsb', 'hive'],
     pig:['datafu', 'oozie'],
     hive:['oozie', 'pig','zeppelin'],
     'ignite-hadoop':['zeppelin'],
@@ -122,7 +122,7 @@ bigtop {
     'hadoop' {
       name    = 'hadoop'
       relNotes = 'Apache Hadoop'
-      version { base = '2.7.1'; pkg = base; release = 1 }
+      version { base = '2.7.2'; pkg = base; release = 1 }
       tarball { destination = "${name}-${version.base}.tar.gz"
                 source      = "${name}-${version.base}-src.tar.gz" }
       url     { download_path = "/$name/common/$name-${version.base}"
@@ -143,7 +143,7 @@ bigtop {
     'hbase' {
       name    = 'hbase'
       relNotes = 'Apache HBase'
-      version { base = '0.98.17'; pkg = base; release = 1 }
+      version { base = '1.1.3'; pkg = base; release = 1 }
       tarball { destination = "${name}-${version.base}.tar.gz"
                 source      = "${name}-${version.base}-src.tar.gz" }
       url     { download_path = "/$name/${version.base}/"
@@ -165,7 +165,7 @@ bigtop {
     'hive' {
       name    = 'hive'
       relNotes = 'Apache Hive'
-      version { base = '1.2.1'; pkg = base; release = 1 }
+      version { base = '2.1.0'; pkg = base; release = 1 }
       tarball { destination = "apache-${name}-${version.base}-src.tar.gz"
                 source      = destination }
       url     { download_path = "/$name/$name-${version.base}/"
@@ -274,7 +274,7 @@ bigtop {
     'crunch' {
       name    = 'crunch'
       relNotes = 'Apache Crunch'
-      version { base = '0.12.0'; pkg = base; release = 1 }
+      version { base = '0.13.0'; pkg = base; release = 1 }
       tarball { destination = "apache-$name-${version.base}-src.tar.gz"
                 source      = destination }
       url     { download_path = "/$name/$name-${version.base}/"
@@ -285,7 +285,7 @@ bigtop {
       name    = 'spark'
       pkg     = 'spark-core'
       relNotes = 'Apache Spark'
-      version { base = '1.5.1'; pkg = base; release = 1 }
+      version { base = '2.0.0'; pkg = base; release = 1 }
       tarball { destination = "$name-${version.base}.tar.gz"
                 source      = "$name-${version.base}.tgz" }
       url     { download_path = "/$name/$name-${version.base}"
@@ -300,8 +300,8 @@ bigtop {
        * to the base HBase version. Update as needed whenever changing the
        * HBase version in the BOM.
        */
-      phoenix.hbase ='HBase-0.98'
-      version { base = "4.6.0-${phoenix.hbase}"; pkg = '4.6.0'; release = 1 }
+      phoenix.hbase ='HBase-1.1'
+      version { base = "4.7.0-${phoenix.hbase}"; pkg = '4.7.0'; release = 1 }
       tarball { destination = "$name-${version.base}-src.tar.gz"
                 source      = destination }
       url     { download_path = "/$name/$name-${version.base}/src"
@@ -337,7 +337,7 @@ bigtop {
     'bigtop-tomcat' {
       name    = "bigtop-tomcat"
       relNotes = "Apache Tomcat"
-      version { base = '6.0.36'; pkg = base; release = 1 }
+      version { base = '6.0.45'; pkg = base; release = 1 }
       tarball { source      = "apache-tomcat-${version.base}-src.tar.gz"
                 destination = "apache-tomcat-${version.base}.tar.gz" }
       url     { download_path = "/tomcat/tomcat-6/v${version.base}/src"
@@ -415,7 +415,7 @@ bigtop {
     'apex' {
       name    = 'apex'
       relNotes = 'Apache Apex (incubating)'
-      version { base = '3.3.0'; pkg = base; release = 1 }
+      version { base = '3.4.0'; pkg = base; release = 1 }
       tarball { source      = "$name-${version.base}-incubating-source-release.tar.gz"
                 destination = "$name-${version.base}.tar.gz" }
       url     { download_path = "/incubator/$name/v${version.base}-incubating/"
