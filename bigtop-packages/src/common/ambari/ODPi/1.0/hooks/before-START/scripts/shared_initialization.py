@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 """
+from __future__ import print_function
 
 import os
 from resource_management.libraries.providers.hdfs_resource import WebHDFSUtil
@@ -63,7 +64,7 @@ def setup_hadoop():
       
     # if WebHDFS is not enabled we need this jar to create hadoop folders.
     if params.host_sys_prepped:
-      print "Skipping copying of fast-hdfs-resource.jar as host is sys prepped"
+      print("Skipping copying of fast-hdfs-resource.jar as host is sys prepped")
     elif params.dfs_type == 'HCFS' or not WebHDFSUtil.is_webhdfs_available(params.is_webhdfs_enabled, params.default_fs):
       # for source-code of jar goto contrib/fast-hdfs-resource
       File(format("{ambari_libs_dir}/fast-hdfs-resource.jar"),
