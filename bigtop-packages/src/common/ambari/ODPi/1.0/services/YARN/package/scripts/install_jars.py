@@ -34,7 +34,7 @@ def install_tez_jars():
                            type="directory",
                            action="create_on_execute",
                            owner=params.tez_user,
-                           mode=0755
+                           mode=0o755
       )
 
     app_dir_path = None
@@ -63,7 +63,7 @@ def install_tez_jars():
                             type="file",
                             action="create_on_execute",
                             source=src_filepath,
-                            mode=0755,
+                            mode=0o755,
                             owner=params.tez_user
          )
         
@@ -74,7 +74,7 @@ def install_tez_jars():
                             type="file",
                             action="create_on_execute",
                             source=src_filepath,
-                            mode=0755,
+                            mode=0o755,
                             owner=params.tez_user
          )
     params.HdfsResource(None, action="execute")

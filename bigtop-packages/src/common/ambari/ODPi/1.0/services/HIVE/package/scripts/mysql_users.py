@@ -25,7 +25,7 @@ def mysql_adduser():
   import params
   
   File(params.mysql_adduser_path,
-       mode=0755,
+       mode=0o755,
        content=StaticFile('addMysqlUser.sh')
   )
   hive_server_host = format("{hive_server_host}")
@@ -49,7 +49,7 @@ def mysql_deluser():
   import params
   
   File(params.mysql_deluser_path,
-       mode=0755,
+       mode=0o755,
        content=StaticFile('removeMysqlUser.sh')
   )
   hive_server_host = format("{hive_server_host}")

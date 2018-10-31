@@ -28,7 +28,7 @@ from resource_management.libraries.functions.show_logs import show_logs
 @OsFamilyFuncImpl(os_family=OSConst.WINSRV_FAMILY)
 def service(componentName, action='start', serviceName='yarn'):
   import status_params
-  if status_params.service_map.has_key(componentName):
+  if componentName in status_params.service_map:
     service_name = status_params.service_map[componentName]
     if action == 'start' or action == 'stop':
       Service(service_name, action=action)

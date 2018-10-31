@@ -187,7 +187,7 @@ sqoop_tar_source = "{0}/{1}/sqoop/sqoop.tar.gz".format(STACK_ROOT_PATTERN, STACK
 hadoop_streaming_tar_dest_dir = "/{0}/apps/{1}/mapreduce/".format(STACK_NAME_PATTERN,STACK_VERSION_PATTERN)
 sqoop_tar_dest_dir = "/{0}/apps/{1}/sqoop/".format(STACK_NAME_PATTERN, STACK_VERSION_PATTERN)
 
-tarballs_mode = 0444
+tarballs_mode = 0o444
 
 purge_tables = "false"
 # Starting from stack version for feature hive_purge_table drop should be executed with purge
@@ -451,7 +451,7 @@ process_name = status_params.process_name
 hive_env_sh_template = config['configurations']['hive-env']['content']
 
 hive_hdfs_user_dir = format("/user/{hive_user}")
-hive_hdfs_user_mode = 0755
+hive_hdfs_user_mode = 0o755
 hive_apps_whs_dir = config['configurations']['hive-site']["hive.metastore.warehouse.dir"]
 whs_dir_protocol = urlparse(hive_apps_whs_dir).scheme
 hive_exec_scratchdir = config['configurations']['hive-site']["hive.exec.scratchdir"]
@@ -540,9 +540,9 @@ templeton_jar = config['configurations']['webhcat-site']['templeton.jar']
 webhcat_server_host = config['clusterHostInfo']['webhcat_server_host']
 
 hcat_hdfs_user_dir = format("/user/{hcat_user}")
-hcat_hdfs_user_mode = 0755
+hcat_hdfs_user_mode = 0o755
 webhcat_hdfs_user_dir = format("/user/{webhcat_user}")
-webhcat_hdfs_user_mode = 0755
+webhcat_hdfs_user_mode = 0o755
 #for create_hdfs_directory
 security_param = "true" if security_enabled else "false"
 

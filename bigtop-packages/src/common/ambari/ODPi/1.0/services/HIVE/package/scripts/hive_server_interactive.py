@@ -316,7 +316,7 @@ class HiveServerInteractiveDefault(HiveServerInteractive):
             parent_dir = os.path.dirname(run_file_path)
             if os.path.isdir(parent_dir):
               shutil.rmtree(parent_dir)
-          except Exception, e:
+          except Exception as e:
             Logger.error("Could not cleanup LLAP app package. Error: " + str(e))
 
         # throw the original exception
@@ -511,7 +511,7 @@ class HiveServerInteractiveDefault(HiveServerInteractive):
       try:
         status = do_retries()
         return status
-      except Exception, e:
+      except Exception as e:
         Logger.info("LLAP app '{0}' did not come up after a wait of {1} seconds.".format(llap_app_name,
                                                                                           time.time() - curr_time))
         traceback.print_exc()

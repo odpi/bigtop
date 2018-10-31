@@ -170,7 +170,7 @@ def execute(configurations={}, parameters={}, host_name=None):
       # execute the query for the JSON that includes templeton status
       url_response = urllib2.urlopen(query, timeout=connection_timeout)
       json_response = json.loads(url_response.read())
-  except urllib2.HTTPError, httpError:
+  except urllib2.HTTPError as httpError:
     label = CRITICAL_HTTP_STATUS_MESSAGE.format(str(httpError.code), query,
       str(httpError), traceback.format_exc())
 

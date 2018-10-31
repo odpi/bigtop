@@ -331,7 +331,7 @@ class ODPi10StackAdvisor(DefaultStackAdvisor):
     # dfs.datanode.du.reserved should be set to 10-15% of volume size
     # For each host selects maximum size of the volume. Then gets minimum for all hosts.
     # This ensures that each host will have at least one data dir with available space.
-    reservedSizeRecommendation = 0l #kBytes
+    reservedSizeRecommendation = 0 #kBytes
     for host in hosts["items"]:
       mountPoints = []
       mountPointDiskAvailableSpace = [] #kBytes
@@ -339,7 +339,7 @@ class ODPi10StackAdvisor(DefaultStackAdvisor):
         mountPoints.append(diskInfo["mountpoint"])
         mountPointDiskAvailableSpace.append(long(diskInfo["size"]))
 
-      maxFreeVolumeSizeForHost = 0l #kBytes
+      maxFreeVolumeSizeForHost = 0 #kBytes
       for dataDir in dataDirs:
         mp = getMountPointForDir(dataDir, mountPoints)
         for i in range(len(mountPoints)):

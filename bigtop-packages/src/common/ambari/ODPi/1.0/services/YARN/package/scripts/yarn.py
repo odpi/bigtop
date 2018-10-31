@@ -64,7 +64,7 @@ def yarn(name = None):
             mode='f'
   )
 
-  if params.service_map.has_key(name):
+  if name in params.service_map:
     service_name = params.service_map[name]
 
     ServiceConfig(service_name,
@@ -77,7 +77,7 @@ def create_log_dir(dir_name):
   Directory(dir_name,
             create_parents = True,
             cd_access="a",
-            mode=0775,
+            mode=0o775,
             owner=params.yarn_user,
             group=params.user_group,
             ignore_failures=True,
@@ -88,7 +88,7 @@ def create_local_dir(dir_name):
   Directory(dir_name,
             create_parents = True,
             cd_access="a",
-            mode=0755,
+            mode=0o755,
             owner=params.yarn_user,
             group=params.user_group,
             ignore_failures=True,
@@ -113,7 +113,7 @@ def yarn(name=None, config_dir=None):
                            type="directory",
                            owner=params.yarn_user,
                            group=params.user_group,
-                           mode=0777,
+                           mode=0o777,
                            recursive_chmod=True
       )
 
@@ -123,7 +123,7 @@ def yarn(name=None, config_dir=None):
                             action="create_on_execute",
                             type="directory",
                             owner=params.hdfs_user,
-                            mode=0777,
+                            mode=0o777,
         )
 
     params.HdfsResource(params.entity_file_history_directory,
@@ -148,7 +148,7 @@ def yarn(name=None, config_dir=None):
                          owner=params.mapred_user,
                          group=params.user_group,
                          change_permissions_for_parents=True,
-                         mode=0777
+                         mode=0o777
     )
     params.HdfsResource(None, action="execute")
     Directory(params.jhs_leveldb_state_store_dir,
@@ -192,14 +192,14 @@ def yarn(name=None, config_dir=None):
       File(params.nm_log_dir_to_mount_file,
            owner=params.hdfs_user,
            group=params.user_group,
-           mode=0644,
+           mode=0o644,
            content=nm_log_dir_to_mount_file_content
       )
       nm_local_dir_to_mount_file_content = handle_mounted_dirs(create_local_dir, params.nm_local_dirs, params.nm_local_dir_to_mount_file, params)
       File(params.nm_local_dir_to_mount_file,
            owner=params.hdfs_user,
            group=params.user_group,
-           mode=0644,
+           mode=0o644,
            content=nm_local_dir_to_mount_file_content
       )
   #</editor-fold>
@@ -209,7 +209,7 @@ def yarn(name=None, config_dir=None):
               owner=params.yarn_user,
               group=params.user_group,
               create_parents = True,
-              mode=0755,
+              mode=0o755,
               cd_access = 'a',
     )
 
@@ -240,7 +240,7 @@ def yarn(name=None, config_dir=None):
             configuration_attributes=params.config['configuration_attributes']['core-site'],
             owner=params.hdfs_user,
             group=params.user_group,
-            mode=0644
+            mode=0o644
   )
 
   # During RU, Core Masters and Slaves need hdfs-site.xml
@@ -253,7 +253,7 @@ def yarn(name=None, config_dir=None):
               configuration_attributes=params.config['configuration_attributes']['hdfs-site'],
               owner=params.hdfs_user,
               group=params.user_group,
-              mode=0644
+              mode=0o644
     )
 
   XmlConfig("mapred-site.xml",
@@ -262,7 +262,7 @@ def yarn(name=None, config_dir=None):
             configuration_attributes=params.config['configuration_attributes']['mapred-site'],
             owner=params.yarn_user,
             group=params.user_group,
-            mode=0644
+            mode=0o644
   )
 
   XmlConfig("yarn-site.xml",
@@ -271,7 +271,7 @@ def yarn(name=None, config_dir=None):
             configuration_attributes=params.config['configuration_attributes']['yarn-site'],
             owner=params.yarn_user,
             group=params.user_group,
-            mode=0644
+            mode=0o644
   )
 
   XmlConfig("capacity-scheduler.xml",
@@ -280,12 +280,12 @@ def yarn(name=None, config_dir=None):
             configuration_attributes=params.config['configuration_attributes']['capacity-scheduler'],
             owner=params.yarn_user,
             group=params.user_group,
-            mode=0644
+            mode=0o644
   )
 
   if name == 'resourcemanager':
     Directory(params.rm_nodes_exclude_dir,
-         mode=0755,
+         mode=0o755,
          create_parents=True,
          cd_access='a',
     )
@@ -304,7 +304,7 @@ def yarn(name=None, config_dir=None):
                            change_permissions_for_parents=True,
                            owner=params.yarn_user,
                            group=params.user_group,
-                           mode=0700
+                           mode=0o700
       )
       params.HdfsResource(None, action="execute")
 
@@ -334,7 +334,7 @@ def yarn(name=None, config_dir=None):
                           change_permissions_for_parents=True,
                           owner=params.yarn_user,
                           group=params.user_group,
-                          mode=0755
+                          mode=0o755
                           )
       params.HdfsResource(params.entity_groupfs_store_dir,
                           type="directory",
@@ -351,7 +351,7 @@ def yarn(name=None, config_dir=None):
                           change_permissions_for_parents=True,
                           owner=params.yarn_user,
                           group=params.user_group,
-                          mode=0755
+                          mode=0o755
                           )
       params.HdfsResource(params.entity_groupfs_active_dir,
                           type="directory",
@@ -363,19 +363,19 @@ def yarn(name=None, config_dir=None):
     params.HdfsResource(None, action="execute")
 
   File(format("{limits_conf_dir}/yarn.conf"),
-       mode=0644,
+       mode=0o644,
        content=Template('yarn.conf.j2')
   )
 
   File(format("{limits_conf_dir}/mapreduce.conf"),
-       mode=0644,
+       mode=0o644,
        content=Template('mapreduce.conf.j2')
   )
 
   File(os.path.join(config_dir, "yarn-env.sh"),
        owner=params.yarn_user,
        group=params.user_group,
-       mode=0755,
+       mode=0o755,
        content=InlineTemplate(params.yarn_env_sh_template)
   )
 
@@ -387,18 +387,18 @@ def yarn(name=None, config_dir=None):
 
   File(os.path.join(config_dir, "container-executor.cfg"),
       group=params.user_group,
-      mode=0644,
+      mode=0o644,
       content=Template('container-executor.cfg.j2')
   )
 
   Directory(params.cgroups_dir,
             group=params.user_group,
             create_parents = True,
-            mode=0755,
+            mode=0o755,
             cd_access="a")
 
   if params.security_enabled:
-    tc_mode = 0644
+    tc_mode = 0o644
     tc_owner = "root"
   else:
     tc_mode = None
@@ -406,7 +406,7 @@ def yarn(name=None, config_dir=None):
 
   File(os.path.join(config_dir, "mapred-env.sh"),
        owner=tc_owner,
-       mode=0755,
+       mode=0o755,
        content=InlineTemplate(params.mapred_env_sh_template)
   )
 
@@ -414,7 +414,7 @@ def yarn(name=None, config_dir=None):
     File(os.path.join(params.hadoop_bin, "task-controller"),
          owner="root",
          group=params.mapred_tt_group,
-         mode=06050
+         mode=0o6050
     )
     File(os.path.join(config_dir, 'taskcontroller.cfg'),
          owner = tc_owner,

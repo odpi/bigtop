@@ -17,6 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
+from __future__ import print_function
 
 import os
 import re
@@ -32,11 +33,11 @@ def main():
 
   # Get the ATS endpoint if it's not given.
   if options.directory == None:
-    print "You must specify a top level directory of the source tree"
+    print("You must specify a top level directory of the source tree")
     return 1
 
   if options.report == None:
-    print "You must specify the report to check against"
+    print("You must specify the report to check against")
     return 1
 
   publicClasses = set()
@@ -68,7 +69,7 @@ def main():
       classname = classre.group(1)
       if classname not in haveChecked:
         if classname in publicClasses:
-          print "Warning, found change in public class " + classname
+          print("Warning, found change in public class " + classname)
         haveChecked.add(classname)
   handle.close()
   

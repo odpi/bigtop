@@ -78,7 +78,7 @@ def webhcat_service_check():
   import params
   File(format("{tmp_dir}/templetonSmoke.sh"),
        content= StaticFile('templetonSmoke.sh'),
-       mode=0755
+       mode=0o755
   )
 
   if params.security_enabled:

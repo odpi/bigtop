@@ -81,7 +81,7 @@ def hive_interactive(name=None):
       params.HdfsResource(None, action="execute")
 
   Directory(params.hive_interactive_etc_dir_prefix,
-            mode=0755
+            mode=0o755
             )
 
   Logger.info("Directories to fill with configs: %s" % str(params.hive_conf_dirs_list))
@@ -123,7 +123,7 @@ def hive_interactive(name=None):
             configuration_attributes=params.config['configuration_attributes']['tez-interactive-site'],
             owner = params.tez_interactive_user,
             group = params.user_group,
-            mode = 0664)
+            mode = 0o664)
 
   '''
   Merge properties from hiveserver2-interactive-site into hiveserver2-site
@@ -164,7 +164,7 @@ def hive_interactive(name=None):
                   configuration_attributes=params.config['configuration_attributes']['hive-interactive-site'],
                   owner=params.hive_user,
                   group=params.user_group,
-                  mode=0644)
+                  mode=0o644)
       else:
         XmlConfig("hive-site.xml",
                   conf_dir=conf_dir,
@@ -172,7 +172,7 @@ def hive_interactive(name=None):
                   configuration_attributes=params.config['configuration_attributes']['hive-interactive-site'],
                   owner=params.hive_user,
                   group=params.user_group,
-                  mode=0644)
+                  mode=0o644)
 
       XmlConfig("hiveserver2-site.xml",
                 conf_dir=conf_dir,
@@ -180,7 +180,7 @@ def hive_interactive(name=None):
                 configuration_attributes=params.config['configuration_attributes']['hiveserver2-interactive-site'],
                 owner=params.hive_user,
                 group=params.user_group,
-                mode=0644)
+                mode=0o644)
 
       hive_server_interactive_conf_dir = conf_dir
 
@@ -191,35 +191,35 @@ def hive_interactive(name=None):
 
       llap_daemon_log4j_filename = 'llap-daemon-log4j2.properties'
       File(format("{hive_server_interactive_conf_dir}/{llap_daemon_log4j_filename}"),
-           mode=0644,
+           mode=0o644,
            group=params.user_group,
            owner=params.hive_user,
            content=params.llap_daemon_log4j)
 
       llap_cli_log4j2_filename = 'llap-cli-log4j2.properties'
       File(format("{hive_server_interactive_conf_dir}/{llap_cli_log4j2_filename}"),
-           mode=0644,
+           mode=0o644,
            group=params.user_group,
            owner=params.hive_user,
            content=params.llap_cli_log4j2)
 
       hive_log4j2_filename = 'hive-log4j2.properties'
       File(format("{hive_server_interactive_conf_dir}/{hive_log4j2_filename}"),
-         mode=0644,
+         mode=0o644,
          group=params.user_group,
          owner=params.hive_user,
          content=params.hive_log4j2)
 
       hive_exec_log4j2_filename = 'hive-exec-log4j2.properties'
       File(format("{hive_server_interactive_conf_dir}/{hive_exec_log4j2_filename}"),
-         mode=0644,
+         mode=0o644,
          group=params.user_group,
          owner=params.hive_user,
          content=params.hive_exec_log4j2)
 
       beeline_log4j2_filename = 'beeline-log4j2.properties'
       File(format("{hive_server_interactive_conf_dir}/{beeline_log4j2_filename}"),
-         mode=0644,
+         mode=0o644,
          group=params.user_group,
          owner=params.hive_user,
          content=params.beeline_log4j2)
@@ -250,7 +250,7 @@ def hive_interactive(name=None):
   File(os.path.join(params.limits_conf_dir, 'hive.conf'),
        owner='root',
        group='root',
-       mode=0644,
+       mode=0o644,
        content=Template("hive.conf.j2"))
 
   if not os.path.exists(params.target_hive_interactive):
@@ -258,9 +258,9 @@ def hive_interactive(name=None):
 
   File(format("/usr/lib/ambari-agent/{check_db_connection_jar_name}"),
        content = DownloadSource(format("{jdk_location}{check_db_connection_jar_name}")),
-       mode = 0644)
+       mode = 0o644)
   File(params.start_hiveserver2_interactive_path,
-       mode=0755,
+       mode=0o755,
        content=Template(format('{start_hiveserver2_interactive_script}')))
 
   Directory(params.hive_pid_dir,
@@ -268,19 +268,19 @@ def hive_interactive(name=None):
             cd_access='a',
             owner=params.hive_user,
             group=params.user_group,
-            mode=0755)
+            mode=0o755)
   Directory(params.hive_log_dir,
             create_parents=True,
             cd_access='a',
             owner=params.hive_user,
             group=params.user_group,
-            mode=0755)
+            mode=0o755)
   Directory(params.hive_interactive_var_lib,
             create_parents=True,
             cd_access='a',
             owner=params.hive_user,
             group=params.user_group,
-            mode=0755)
+            mode=0o755)
 
 """
 Remove 'org.apache.atlas.hive.hook.HiveHook' value from Hive2/hive-site.xml config 'hive.exec.post.hooks', if exists.

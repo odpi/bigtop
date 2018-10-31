@@ -114,7 +114,7 @@ def hive(name=None):
                             type="directory",
                             action="create_on_execute",
                             owner=params.webhcat_user,
-                            mode=0755
+                            mode=0o755
                           )
     
     # Create webhcat dirs.
@@ -187,7 +187,7 @@ def hive(name=None):
                            type="directory",
                             action="create_on_execute",
                             owner=params.hive_user,
-                            mode=0777
+                            mode=0o777
       )
     else:
       Logger.info(format("Not creating warehouse directory '{hive_apps_whs_dir}', as the location is not in DFS."))
@@ -206,12 +206,12 @@ def hive(name=None):
                            action="create_on_execute",
                            owner=params.hive_user,
                            group=params.hdfs_user,
-                           mode=0777) # Hive expects this dir to be writeable by everyone as it is used as a temp dir
+                           mode=0o777) # Hive expects this dir to be writeable by everyone as it is used as a temp dir
       
     params.HdfsResource(None, action="execute")
 
   Directory(params.hive_etc_dir_prefix,
-            mode=0755
+            mode=0o755
   )
 
   # We should change configurations for client as well as for server.
@@ -226,7 +226,7 @@ def hive(name=None):
             configuration_attributes=params.config['configuration_attributes']['hive-site'],
             owner=params.hive_user,
             group=params.user_group,
-            mode=0644)
+            mode=0o644)
 
   # Generate atlas-application.properties.xml file
   if has_atlas_in_cluster():
@@ -240,7 +240,7 @@ def hive(name=None):
               configuration_attributes=params.config['configuration_attributes']['hiveserver2-site'],
               owner=params.hive_user,
               group=params.user_group,
-              mode=0644)
+              mode=0o644)
 
   if params.hive_metastore_site_supported and name == 'metastore':
     XmlConfig("hivemetastore-site.xml",
@@ -249,7 +249,7 @@ def hive(name=None):
               configuration_attributes=params.config['configuration_attributes']['hivemetastore-site'],
               owner=params.hive_user,
               group=params.user_group,
-              mode=0644)
+              mode=0o644)
   
   File(format("{hive_config_dir}/hive-env.sh"),
        owner=params.hive_user,
@@ -267,7 +267,7 @@ def hive(name=None):
   File(os.path.join(params.limits_conf_dir, 'hive.conf'),
        owner='root',
        group='root',
-       mode=0644,
+       mode=0o644,
        content=Template("hive.conf.j2")
        )
 
@@ -279,7 +279,7 @@ def hive(name=None):
 
   File(format("/usr/lib/ambari-agent/{check_db_connection_jar_name}"),
        content = DownloadSource(format("{jdk_location}{check_db_connection_jar_name}")),
-       mode = 0644,
+       mode = 0o644,
   )
 
   if name == 'metastore':
@@ -290,7 +290,7 @@ def hive(name=None):
     )
 
     File(params.start_metastore_path,
-         mode=0755,
+         mode=0o755,
          content=StaticFile('startMetastore.sh')
     )
     if params.init_metastore_schema:
@@ -321,7 +321,7 @@ def hive(name=None):
       )
   elif name == 'hiveserver2':
     File(params.start_hiveserver2_path,
-         mode=0755,
+         mode=0o755,
          content=Template(format('{start_hiveserver2_script}'))
     )
 
@@ -337,19 +337,19 @@ def hive(name=None):
               cd_access='a',
               owner=params.hive_user,
               group=params.user_group,
-              mode=0755)
+              mode=0o755)
     Directory(params.hive_log_dir,
               create_parents = True,
               cd_access='a',
               owner=params.hive_user,
               group=params.user_group,
-              mode=0755)
+              mode=0o755)
     Directory(params.hive_var_lib,
               create_parents = True,
               cd_access='a',
               owner=params.hive_user,
               group=params.user_group,
-              mode=0755)
+              mode=0o755)
 
 """
 Writes configuration files required by Hive.
@@ -369,7 +369,7 @@ def fill_conf_dir(component_conf_dir):
             configuration_attributes=params.config['configuration_attributes']['mapred-site'],
             owner=params.hive_user,
             group=params.user_group,
-            mode=0644)
+            mode=0o644)
 
 
   File(format("{component_conf_dir}/hive-default.xml.template"),
@@ -388,14 +388,14 @@ def fill_conf_dir(component_conf_dir):
     log4j_exec_filename = 'hive-exec-log4j.properties'
     if (params.log4j_exec_props != None):
       File(format("{component_conf_dir}/{log4j_exec_filename}"),
-           mode=0644,
+           mode=0o644,
            group=params.user_group,
            owner=params.hive_user,
            content=params.log4j_exec_props
       )
     elif (os.path.exists("{component_conf_dir}/{log4j_exec_filename}.template")):
       File(format("{component_conf_dir}/{log4j_exec_filename}"),
-           mode=0644,
+           mode=0o644,
            group=params.user_group,
            owner=params.hive_user,
            content=StaticFile(format("{component_conf_dir}/{log4j_exec_filename}.template"))
@@ -404,14 +404,14 @@ def fill_conf_dir(component_conf_dir):
     log4j_filename = 'hive-log4j.properties'
     if (params.log4j_props != None):
       File(format("{component_conf_dir}/{log4j_filename}"),
-           mode=0644,
+           mode=0o644,
            group=params.user_group,
            owner=params.hive_user,
            content=params.log4j_props
       )
     elif (os.path.exists("{component_conf_dir}/{log4j_filename}.template")):
       File(format("{component_conf_dir}/{log4j_filename}"),
-           mode=0644,
+           mode=0o644,
            group=params.user_group,
            owner=params.hive_user,
            content=StaticFile(format("{component_conf_dir}/{log4j_filename}.template"))
@@ -477,5 +477,5 @@ def jdbc_connector(target, hive_previous_jdbc_jar):
   pass
 
   File(target,
-       mode = 0644,
+       mode = 0o644,
   )
